@@ -1,31 +1,106 @@
+# 猫のアニメーション (micro:bit)
 
-> Open this page at [https://msykmyt.github.io/neko/](https://msykmyt.github.io/neko/)
+このプロジェクトは、BBC micro:bitとサーボモーターを使用した猫のアニメーションを実装したものです。
 
-## Use as Extension
+## 概要
 
-This repository can be added as an **extension** in MakeCode.
+micro:bitでサーボモーターを制御し、猫の尻尾や耳などの動きを再現する簡単なアニメーションプロジェクトです。ボタン操作でアニメーションを開始し、かわいい猫のぬいぐるみや模型に命を吹き込みます。
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/msykmyt/neko** and import
+## 機能
 
-## Edit this project ![Build status badge](https://github.com/msykmyt/neko/workflows/MakeCode/badge.svg)
+- サーボモーターによる動きの制御
+- ボタン操作でアニメーション開始
+- 繰り返し動作
+- カスタマイズ可能な動きのパターン
 
-To edit this repository in MakeCode.
+## 使用方法
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/msykmyt/neko** and click import
+1. [MakeCode エディタ](https://makecode.microbit.org/)を開く
+2. 「読み込む」をクリックし、このリポジトリからダウンロードした .hex ファイルを選択
+3. または、「インポート」→「URLから読み込む」を選択し、このリポジトリのURLを入力
+4. micro:bitにダウンロードして使用
+5. サーボモーターを接続し、猫の模型に取り付けて使用
 
-## Blocks preview
+## ハードウェア要件
 
-This image shows the blocks code from the last commit in master.
-This image may take a few minutes to refresh.
+- BBC micro:bit
+- サーボモーター（SG90など小型のもの推奨）
+- 電源（単三電池3-4本または充電式バッテリー）
+- ジャンパーワイヤー
+- 猫の模型またはぬいぐるみ（自作または既製品を改造）
 
-![A rendered view of the blocks](https://github.com/msykmyt/neko/raw/master/.github/makecode/blocks.png)
+## 配線方法
 
-#### Metadata (used for search, rendering)
+```
+micro:bit Pin 0 --- サーボモーター信号線（黄色または白）
+micro:bit 3V ----- サーボモーター電源線（赤）
+micro:bit GND ---- サーボモーターGND線（茶色または黒）
+```
 
-* for PXT/microbit
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
+注意: サーボモーターの消費電力が大きい場合は、外部電源を使用してください。
+
+## 操作方法
+
+- Aボタン: アニメーション開始（尻尾の動き）
+- Bボタン: 別のアニメーション開始（耳の動きなど、コードに追加が必要）
+- A+Bボタン同時押し: 特殊なアニメーション（コードに追加が必要）
+
+## コードの説明
+
+```typescript
+// Aボタンが押されたときの動作
+input.onButtonPressed(Button.A, function () {
+    // 10回繰り返し
+    for (let index = 0; index < 10; index++) {
+        // サーボを0度に設定（尻尾を下げる）
+        pins.servoWritePin(AnalogPin.P0, 0)
+        // 1秒待機
+        basic.pause(1000)
+        // サーボを90度に設定（尻尾を上げる）
+        pins.servoWritePin(AnalogPin.P0, 90)
+        // 1秒待機
+        basic.pause(1000)
+    }
+})
+```
+
+## カスタマイズ
+
+コード内の以下の部分を編集することで、動作をカスタマイズできます：
+
+- サーボの角度（現在は0度と90度）
+- 動作の間隔（現在は1000ミリ秒）
+- 繰り返し回数（現在は10回）
+- 複数のサーボモーターの追加（別のピンを使用）
+
+## 拡張アイデア
+
+- 複数のサーボモーターを使用して、尻尾と耳の両方を動かす
+- 光センサーを追加して、明るさに反応する猫を作る
+- 音センサーを追加して、音に反応する猫を作る
+- 加速度センサーを使って、撫でられたときに反応する機能
+- LEDで目を光らせる機能の追加
+
+## 製作のヒント
+
+1. 軽量の材料（フェルト、発泡スチロールなど）で猫の形を作る
+2. サーボモーターを適切な位置に固定する
+3. micro:bitと電池を目立たない場所に収納する
+4. 動く部分（尻尾や耳）は軽い素材で作り、サーボに負担をかけないようにする
+
+## 教育的価値
+
+このプロジェクトは以下のような学習要素を含んでいます：
+
+- サーボモーターの制御方法
+- 繰り返し処理の理解
+- 物理的なプロジェクトの設計と製作
+- アニメーションの基本原理
+
+## ライセンス
+
+MIT
+
+## 作者
+
+msyk9038
